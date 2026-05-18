@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+:root {
+  --neon: #CCFF00;
+  --neon-dim: #a8d400;
+  --purple: #8B14FD;
+  --purple-mid: #6D28D9;
+  --purple-dark: #3B0764;
+  --gold: #FFB800;
+  --gold-dim: #CC9200;
+  --hot-pink: #FF2D8B;
+  --dark: #080808;
+  --dark-2: #0F0F0F;
+  --dark-3: #161616;
+  --dark-4: #1E1E1E;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: #080808;
+  color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20%       { transform: translate(-2px, 2px); clip-path: inset(20% 0 40% 0); }
+  40%       { transform: translate(2px, -2px); clip-path: inset(60% 0 10% 0); }
+  60%       { transform: translate(-1px, 1px); }
+  80%       { transform: translate(1px, -1px); }
+}
+
+@keyframes pulse-neon {
+  0%, 100% { box-shadow: 0 0 8px #CCFF0066, 0 0 20px #CCFF0033; }
+  50%       { box-shadow: 0 0 20px #CCFF0099, 0 0 50px #CCFF0055, 0 0 80px #CCFF0022; }
+}
+
+@keyframes pulse-purple {
+  0%, 100% { box-shadow: 0 0 8px #8B14FD66, 0 0 20px #8B14FD33; }
+  50%       { box-shadow: 0 0 20px #8B14FD99, 0 0 50px #8B14FD55; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.animate-fade-up             { animation: fadeUp 0.6s ease both; }
+.animate-fade-up-delay-1     { animation: fadeUp 0.6s ease 0.1s both; }
+.animate-fade-up-delay-2     { animation: fadeUp 0.6s ease 0.2s both; }
+.animate-fade-up-delay-3     { animation: fadeUp 0.6s ease 0.3s both; }
+.animate-fade-up-delay-4     { animation: fadeUp 0.6s ease 0.4s both; }
+.animate-fade-in             { animation: fadeIn 0.5s ease both; }
+.animate-float               { animation: float 3s ease-in-out infinite; }
+.animate-pulse-neon          { animation: pulse-neon 2s ease-in-out infinite; }
+
+/* ── NEON BORDER ── */
+.neon-border {
+  border: 1px solid #CCFF0030;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.neon-border:hover {
+  border-color: #CCFF0080;
+  box-shadow: 0 0 16px #CCFF0020, inset 0 0 16px #CCFF0005;
+}
+
+/* ── PURPLE BORDER ── */
+.purple-border {
+  border: 1px solid #8B14FD40;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.purple-border:hover {
+  border-color: #8B14FD90;
+  box-shadow: 0 0 20px #8B14FD30;
+}
+
+/* ── CARD HOVER ── */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.7), 0 0 24px #8B14FD15;
+}
+
+/* ── BUTTON NEON (lime) ── */
+.btn-neon {
+  background: #CCFF00;
+  color: #080808;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.08em;
+  font-size: 1rem;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.btn-neon:hover {
+  background: #d9ff33;
+  box-shadow: 0 0 24px #CCFF0080, 0 0 60px #CCFF0030;
+  transform: translateY(-1px);
+}
+
+/* ── BUTTON PURPLE ── */
+.btn-purple {
+  background: linear-gradient(135deg, #8B14FD, #6D28D9);
+  color: #FFFFFF;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.08em;
+  font-size: 1rem;
+  transition: box-shadow 0.2s, transform 0.1s;
+}
+.btn-purple:hover {
+  box-shadow: 0 0 24px #8B14FD80, 0 0 60px #8B14FD30;
+  transform: translateY(-1px);
+}
+
+/* ── BUTTON GOLD ── */
+.btn-gold {
+  background: linear-gradient(135deg, #FFB800, #CC9200);
+  color: #080808;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.08em;
+  font-size: 1rem;
+  transition: box-shadow 0.2s, transform 0.1s;
+}
+.btn-gold:hover {
+  box-shadow: 0 0 24px #FFB80070, 0 0 50px #FFB80030;
+  transform: translateY(-1px);
+}
+
+/* ── GRADIENT TEXT ── */
+.text-gradient-neon {
+  background: linear-gradient(135deg, #CCFF00 0%, #8B14FD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FFB800 0%, #FF6B00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── TAG ── */
+.tag-neon {
+  background: #CCFF0015;
+  color: #CCFF00;
+  border: 1px solid #CCFF0040;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.tag-purple {
+  background: #8B14FD15;
+  color: #C084FC;
+  border: 1px solid #8B14FD40;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.tag-gold {
+  background: #FFB80015;
+  color: #FFB800;
+  border: 1px solid #FFB80040;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── INPUTS ── */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #8B14FD60;
+  border-color: #8B14FD !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+::selection {
+  background: #8B14FD;
+  color: #CCFF00;
+}
+
+/* ── GLOW ORBS ── */
+.glow-neon {
+  background: radial-gradient(circle, #CCFF0020 0%, transparent 70%);
+}
+.glow-purple {
+  background: radial-gradient(circle, #8B14FD25 0%, transparent 70%);
+}
+.glow-gold {
+  background: radial-gradient(circle, #FFB80020 0%, transparent 70%);
+}
