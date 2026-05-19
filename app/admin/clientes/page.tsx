@@ -22,7 +22,7 @@ export default async function AdminClientesPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-neutral-100">
-            {clientes.map((c) => (
+            {clientes.map((c: (typeof clientes)[number]) => (
               <tr key={c.id}>
                 <td className="px-5 py-3 font-medium">{c.name}</td>
                 <td className="px-5 py-3 text-neutral-500">{c.email}</td>

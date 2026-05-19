@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 
@@ -15,6 +15,14 @@ interface Servicio {
 const HORARIOS = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
 
 export default function NuevoTurnoPage() {
+  return (
+    <Suspense>
+      <NuevoTurnoContent />
+    </Suspense>
+  );
+}
+
+function NuevoTurnoContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, isPending } = useSession();
