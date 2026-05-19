@@ -3,28 +3,11 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { Prisma } from "@prisma/client";
 
-interface TurnoConServicio {
-  id: string;
-  fecha: Date;
-  estado: string;
-  notas: string | null;
-  userId: string;
-  servicioId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  servicio: {
-    id: string;
-    nombre: string;
-    precio: number;
-    duracion: number;
-    descripcion: string | null;
-    imagen: string | null;
-    activo: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  };
-}
+type TurnoConServicio = Prisma.TurnoGetPayload<{ include: { servicio: true } }>;
+
+const TZ = "America/Argentina/Buenos_Aires";
 
 const estadoConfig: Record<string, { label: string; className: string; dot: string }> = {
   PENDIENTE:   { label: "PENDIENTE",   className: "bg-yellow-900/20 text-yellow-400 border-yellow-500/30",   dot: "bg-yellow-400" },
@@ -43,8 +26,9 @@ export default async function MisTurnosPage() {
     orderBy: { fecha: "desc" },
   });
 
-  const proximos = turnos.filter((t: TurnoConServicio) => new Date(t.fecha) >= new Date() && t.estado !== "CANCELADO");
-  const pasados  = turnos.filter((t: TurnoConServicio) => new Date(t.fecha) < new Date() || t.estado === "CANCELADO");
+  const ahora = new Date();
+  const proximos = turnos.filter((t) => t.fecha >= ahora && t.estado !== "CANCELADO");
+  const pasados  = turnos.filter((t) => t.fecha < ahora || t.estado === "CANCELADO");
 
   return (
     <div className="min-h-screen bg-[#0A0A0A]">
@@ -117,13 +101,13 @@ function TurnoCard({ turno }: { turno: TurnoConServicio }) {
       {/* Date block */}
       <div className="shrink-0 w-14 text-center bg-[#CCFF0010] rounded-lg py-2 border border-[#CCFF0020]">
         <p className="text-xs text-neutral-600 uppercase tracking-wide">
-          {fecha.toLocaleDateString("es-AR", { month: "short" })}
+          {fecha.toLocaleDateString("es-AR", { month: "short", timeZone: TZ })}
         </p>
         <p className="text-2xl font-bold text-[#CCFF00] leading-tight" style={{ fontFamily: "Bebas Neue, sans-serif" }}>
-          {fecha.getDate()}
+          {fecha.toLocaleDateString("es-AR", { day: "numeric", timeZone: TZ })}
         </p>
         <p className="text-xs text-neutral-600">
-          {fecha.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}
+          {fecha.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", timeZone: TZ })}
         </p>
       </div>
 
@@ -131,7 +115,7 @@ function TurnoCard({ turno }: { turno: TurnoConServicio }) {
       <div className="flex-1 min-w-0">
         <p className="font-bold text-white uppercase tracking-wide truncate">{turno.servicio.nombre}</p>
         <p className="text-sm text-neutral-600">
-          {fecha.toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+          {fecha.toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: TZ })}
         </p>
         {turno.notas && (
           <p className="text-xs text-neutral-600 mt-1 italic truncate">"{turno.notas}"</p>
